@@ -9,35 +9,34 @@ export interface MovieUrlFormState {
   fieldErrors?: Record<string, string>;
 }
 
+import { MovieUrlSchema } from "@/lib/validations";
+
 function validateMovieUrlForm(formData: FormData): {
   valid: boolean;
-  data: {
-    movieId: string;
-    streamUrl1: string;
-    streamUrl2: string | null;
-    streamUrl3: string | null;
-    streamUrl4: string | null;
-    streamUrl5: string | null;
-  };
+  data: any;
   fieldErrors: Record<string, string>;
 } {
+  const payload = {
+    movieId: formData.get("movieId")?.toString().trim(),
+    streamUrl1: formData.get("streamUrl1")?.toString().trim(),
+    streamUrl2: formData.get("streamUrl2")?.toString().trim() || null,
+    streamUrl3: formData.get("streamUrl3")?.toString().trim() || null,
+    streamUrl4: formData.get("streamUrl4")?.toString().trim() || null,
+    streamUrl5: formData.get("streamUrl5")?.toString().trim() || null,
+  };
+
+  const parsed = MovieUrlSchema.safeParse(payload);
   const fieldErrors: Record<string, string> = {};
 
-  const movieId = (formData.get("movieId") as string)?.trim();
-  const streamUrl1 = (formData.get("streamUrl1") as string)?.trim();
-  const streamUrl2 = (formData.get("streamUrl2") as string)?.trim() || null;
-  const streamUrl3 = (formData.get("streamUrl3") as string)?.trim() || null;
-  const streamUrl4 = (formData.get("streamUrl4") as string)?.trim() || null;
-  const streamUrl5 = (formData.get("streamUrl5") as string)?.trim() || null;
+  if (!parsed.success) {
+    const rawErrors = parsed.error.flatten().fieldErrors;
+    for (const key in rawErrors) {
+      fieldErrors[key] = rawErrors[key as keyof typeof rawErrors]?.[0] || "Invalid field";
+    }
+    return { valid: false, data: null, fieldErrors };
+  }
 
-  if (!movieId) fieldErrors.movieId = "Movie ID is missing";
-  if (!streamUrl1) fieldErrors.streamUrl1 = "Stream URL 1 is required";
-
-  return {
-    valid: Object.keys(fieldErrors).length === 0,
-    data: { movieId, streamUrl1, streamUrl2, streamUrl3, streamUrl4, streamUrl5 },
-    fieldErrors,
-  };
+  return { valid: true, data: parsed.data, fieldErrors };
 }
 
 export async function createMovieUrl(

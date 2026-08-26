@@ -63,8 +63,8 @@ export async function POST(request: Request) {
 
     response.cookies.set("dbmovie_session", user.id, {
       httpOnly: true,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      secure: true,
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });
