@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import Pusher from "pusher-js";
 import { BellIcon } from "@heroicons/react/24/outline";
 
+import { useRouter } from "next/navigation";
+
 interface Notification {
   id: string;
   message: string;
@@ -12,6 +14,7 @@ interface Notification {
 }
 
 export default function NotificationDropdown() {
+  const router = useRouter();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -32,6 +35,9 @@ export default function NotificationDropdown() {
         read: false,
       };
       setNotifications((prev) => [newNotif, ...prev]);
+      
+      // Refresh the current page data so tables update in real-time
+      router.refresh();
     };
 
     channel.bind("new-user", handleNewNotification);
