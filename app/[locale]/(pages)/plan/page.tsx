@@ -42,7 +42,9 @@ export default function PlanPage() {
       const res = await checkoutPlan(planId);
       if (res.success) {
         alert(res.message);
-        if (!res.pending) {
+        if (res.paymentUrl) {
+          window.location.href = res.paymentUrl;
+        } else if (!res.pending) {
           router.push("/dashboard");
         } else {
           router.push("/history-plan");

@@ -1,7 +1,8 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
+import crypto from "crypto";
 
 export async function checkoutPlan(planId: string) {
   try {
@@ -60,21 +61,72 @@ export async function checkoutPlan(planId: string) {
 
       return { success: true, message: "Free plan activated successfully!" };
     } else {
-      // Jika harga > 0, buat riwayat Pending
-      await prisma.historyMembership.create({
-        data: {
-          userId: user.id,
-          membershipPlanId: plan.id,
-          statusPayment: "Pending",
-          invoice: `INV-${Date.now()}`,
-        },
+      // Pembayaran berbayar dengan Cryptomus
+      const gateway = await prisma.paymentGateway.findUnique({
+        where: { name: "cryptomus" },
       });
 
-      return {
-        success: true,
-        message: "Invoice created! Redirecting to payment...",
-        pending: true,
+      if (!gateway || !gateway.isActive || !gateway.merchantId || !gateway.paymentKey) {
+        return { success: false, error: "Payment gateway is not configured or active." };
+      }
+
+      const invoiceId = `INV-${Date.now()}`;
+      const amount = Number(plan.priceUsd).toFixed(2);
+      
+      const reqHeaders = await headers();
+      const origin = reqHeaders.get("origin") || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+
+      const payload = {
+        amount: amount,
+        currency: "USD",
+        order_id: invoiceId,
+        url_return: `${origin}/history-plan`,
+        url_success: `${origin}/history-plan`,
+        // url_callback will be implemented later
       };
+
+      const payloadStr = Buffer.from(JSON.stringify(payload)).toString("base64");
+      const sign = crypto.createHash("md5").update(payloadStr + gateway.paymentKey).digest("hex");
+
+      const response = await fetch("https://api.cryptomus.com/v1/payment", {
+        method: "POST",
+        headers: {
+          "merchant": gateway.merchantId,
+          "sign": sign,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (result.state === 0 || result.state === 1) { // 0 or 1 usually indicates success depending on cryptomus state codes
+        const paymentUrl = result.result.url;
+        
+        await prisma.historyMembership.create({
+          data: {
+            userId: user.id,
+            membershipPlanId: plan.id,
+            statusPayment: "Pending",
+            invoice: invoiceId,
+            detailPayment: {
+              cryptomus_uuid: result.result.uuid,
+              cryptomus_url: paymentUrl,
+              amount_usd: amount,
+            },
+          },
+        });
+
+        return {
+          success: true,
+          message: "Invoice created! Redirecting to payment...",
+          pending: true,
+          paymentUrl: paymentUrl,
+        };
+      } else {
+        console.error("Cryptomus API error:", result);
+        return { success: false, error: "Failed to create payment invoice with gateway." };
+      }
     }
   } catch (error) {
     console.error("Checkout error:", error);
