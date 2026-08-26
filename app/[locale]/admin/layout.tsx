@@ -14,6 +14,7 @@ import {
   XMarkIcon,
   ChevronDownIcon,
   TvIcon,
+  DocumentTextIcon,
 } from "@heroicons/react/24/outline";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
