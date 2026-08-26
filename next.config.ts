@@ -5,6 +5,9 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const nextConfig: NextConfig = {
   serverExternalPackages: [],
+  experimental: {
+    optimizePackageImports: ["@heroicons/react"],
+  },
   async headers() {
     const cspHeader = `
       default-src 'self';
