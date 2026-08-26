@@ -7,7 +7,7 @@ export const config = {
   matcher: [
     '/',
     '/(en|id|nl|ja|zh|ar|de|af)/:path*',
-    '/((?!api|v1|_next|_vercel|.*\\..*).*)'
+    '/((?!api/|v1/|_next/|_vercel/|.*\\..*).*)'
   ]
 };
 
@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const ip = request.headers.get("x-forwarded-for") ?? "127.0.0.1";
   
-  if (pathname.startsWith('/api')) {
+  if (pathname.startsWith('/api/')) {
     const rateLimit = globalRateLimiter.check(ip);
     if (!rateLimit.success) {
       return NextResponse.json(
