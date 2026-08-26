@@ -112,10 +112,7 @@ export async function updateDramaUrl(
   redirect(`/admin/movie/serial?id=${data.movieId}`);
 }
 
-export async function deleteDramaUrl(formData: FormData) {
-  const id = formData.get("id") as string;
-  const movieId = formData.get("movieId") as string;
-  
+export async function deleteDramaUrl(movieId: string, id: string) {
   if (!id || !movieId) {
     throw new Error("Missing ID");
   }

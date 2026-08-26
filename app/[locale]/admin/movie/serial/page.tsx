@@ -92,11 +92,11 @@ export default async function AdminMovieSerialPage({
                           <PencilSquareIcon className="h-3 w-3" />
                           Edit
                         </Link>
-                        <form action={deleteDramaUrl}>
-                          <input type="hidden" name="id" value={url.id} />
-                          <input type="hidden" name="movieId" value={movieId} />
-                          <DeleteButton />
-                        </form>
+                        <DeleteButton 
+                          id={url.id} 
+                          action={deleteDramaUrl.bind(null, movieId)} 
+                          entityName="Episode" 
+                        />
                       </div>
                     </td>
                   </tr>
