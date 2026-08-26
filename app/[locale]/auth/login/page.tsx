@@ -32,7 +32,11 @@ export default function LoginPage() {
       }
 
       setMessage(data.message || "Login berhasil.");
-      window.location.href = "/";
+      if (data.user?.level === "Admin") {
+        window.location.href = "/admin/dashboard";
+      } else {
+        window.location.href = "/dashboard";
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login gagal.");
     } finally {
