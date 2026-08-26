@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import ConfirmModal from "@/app/components/ConfirmModal";
 
 interface User {
   id: string;
@@ -94,10 +95,9 @@ export default function AccountPage() {
     }
   };
 
-  const handleDeleteAccount = async () => {
-    if (!confirm("Are you sure you want to delete your account? This action cannot be undone."))
-      return;
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+  const executeDeleteAccount = async () => {
     try {
       const response = await fetch("/api/auth/delete-account", { method: "POST" });
       const result = await response.json();
@@ -107,6 +107,10 @@ export default function AccountPage() {
     } catch (err) {
       alert("Error deleting account");
     }
+  };
+
+  const handleDeleteAccount = () => {
+    setIsDeleteModalOpen(true);
   };
 
   if (loading) {
@@ -233,6 +237,16 @@ export default function AccountPage() {
           </section>
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={executeDeleteAccount}
+        title="Delete Account"
+        message="Are you sure you want to delete your account? All data, API keys, and payment history will be permanently removed. This action cannot be undone."
+        confirmText="Delete Account"
+        isDestructive={true}
+      />
     </main>
   );
 }

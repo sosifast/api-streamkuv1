@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import ConfirmModal from "@/app/components/ConfirmModal";
 
 interface ApiKeyResponse {
   apiKey: string | null;
@@ -41,10 +42,9 @@ export default function ApiPage() {
     }
   };
 
-  const handleGenerateKey = async () => {
-    if (apiKey && !confirm("Generate a new API key? Your current key will be replaced."))
-      return;
+  const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
 
+  const executeGenerateKey = async () => {
     setGenerating(true);
     try {
       const response = await fetch("/api/v1/api-keys", { method: "POST" });
@@ -60,6 +60,14 @@ export default function ApiPage() {
       console.error(err);
     } finally {
       setGenerating(false);
+    }
+  };
+
+  const handleGenerateKey = () => {
+    if (apiKey) {
+      setIsGenerateModalOpen(true);
+    } else {
+      executeGenerateKey();
     }
   };
 
@@ -159,6 +167,16 @@ export default function ApiPage() {
           </div>
         )}
       </div>
+
+      <ConfirmModal
+        isOpen={isGenerateModalOpen}
+        onClose={() => setIsGenerateModalOpen(false)}
+        onConfirm={executeGenerateKey}
+        title="Generate New API Key"
+        message="Are you sure you want to generate a new API key? Your current key will be permanently replaced and will stop working immediately."
+        confirmText="Generate Key"
+        isDestructive={false}
+      />
     </main>
   );
 }
