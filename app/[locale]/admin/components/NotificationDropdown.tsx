@@ -35,9 +35,13 @@ export default function NotificationDropdown() {
         read: false,
       };
       setNotifications((prev) => [newNotif, ...prev]);
+      setIsOpen(true); // Automatically open the dropdown
       
       // Refresh the current page data so tables update in real-time
       router.refresh();
+      
+      // Show an alert to the user
+      alert(`Pemberitahuan Baru: ${data.message}`);
     };
 
     channel.bind("new-user", handleNewNotification);
