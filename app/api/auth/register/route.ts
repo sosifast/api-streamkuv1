@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
 import { prisma } from "@/lib/prisma";
+import { pusherServer } from "@/lib/pusher";
 
 export async function POST(request: Request) {
   try {
@@ -47,22 +48,31 @@ export async function POST(request: Request) {
         level: "Member",
         status: "Active",
       },
-      select: {
-        id: true,
-        username: true,
-        email: true,
-        level: true,
-      },
     });
+
+    try {
+      await pusherServer.trigger("admin-notifications", "new-user", {
+        message: `New user registered: ${username} (${email})`,
+        time: new Date().toISOString(),
+      });
+    } catch (pushErr) {
+      console.error("Pusher error:", pushErr);
+    }
 
     return NextResponse.json(
       {
-        message: "Registrasi berhasil.",
-        user,
+        status: true,
+        data: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          level: user.level,
+        },
+        message: "Register success",
       },
       { status: 201 },
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error("Register error:", error);
     return NextResponse.json(
       { message: "Terjadi kesalahan saat registrasi." },

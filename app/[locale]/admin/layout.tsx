@@ -16,6 +16,7 @@ import {
   TvIcon,
   DocumentTextIcon,
 } from "@heroicons/react/24/outline";
+import NotificationDropdown from "./components/NotificationDropdown";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -149,19 +150,29 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Main area */}
       <div className="flex flex-1 flex-col">
-        {/* Top bar (mobile) */}
-        <header className="flex h-14 items-center gap-3 border-b border-white/10 bg-[#101216]/80 px-4 backdrop-blur lg:hidden">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 text-zinc-400 transition hover:bg-white/5 hover:text-white"
-          >
-            {sidebarOpen ? (
-              <XMarkIcon className="h-5 w-5" />
-            ) : (
-              <Bars3Icon className="h-5 w-5" />
-            )}
-          </button>
-          <p className="font-display text-sm font-bold text-white">DB Movie {t("adminPanel")}</p>
+        {/* Top bar (Unified for Mobile & Desktop) */}
+        <header className="flex h-14 items-center justify-between border-b border-white/10 bg-[#101216]/80 px-4 backdrop-blur">
+          <div className="flex items-center gap-3">
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 text-zinc-400 transition hover:bg-white/5 hover:text-white lg:hidden"
+            >
+              {sidebarOpen ? (
+                <XMarkIcon className="h-5 w-5" />
+              ) : (
+                <Bars3Icon className="h-5 w-5" />
+              )}
+            </button>
+            <p className="font-display text-sm font-bold text-white lg:hidden">
+              DB Movie {t("adminPanel")}
+            </p>
+          </div>
+          
+          {/* Right side: Notifications */}
+          <div className="flex items-center gap-3 ml-auto">
+            <NotificationDropdown />
+          </div>
         </header>
 
         {/* Page content */}

@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import crypto from "crypto";
 import { revalidatePath } from "next/cache";
+import { pusherServer } from "@/lib/pusher";
 
 export async function syncCryptomusPayment(historyId: string) {
   try {
@@ -77,6 +78,13 @@ export async function syncCryptomusPayment(historyId: string) {
             },
           }),
         ]);
+
+        try {
+          await pusherServer.trigger("admin-notifications", "payment-plan", {
+            message: `User ${history.user.username} successfully paid for plan: ${plan.name}`,
+            time: new Date().toISOString(),
+          });
+        } catch (err) {}
 
         revalidatePath("/admin/history-plan");
         return { success: true, message: "Payment successful! User subscription updated." };

@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { cookies, headers } from "next/headers";
 import crypto from "crypto";
+import { pusherServer } from "@/lib/pusher";
 
 export async function checkoutPlan(planId: string) {
   try {
@@ -36,7 +37,6 @@ export async function checkoutPlan(planId: string) {
       const expiredAt = new Date();
       expiredAt.setDate(expiredAt.getDate() + plan.expired);
 
-      // Transaksi DB: Buat riwayat pembayaran (Success) & update profil user
       await prisma.$transaction([
         prisma.historyMembership.create({
           data: {
@@ -58,6 +58,13 @@ export async function checkoutPlan(planId: string) {
           },
         }),
       ]);
+
+      try {
+        await pusherServer.trigger("admin-notifications", "payment-plan", {
+          message: `User ${user.username} claimed a free plan: ${plan.name}`,
+          time: new Date().toISOString(),
+        });
+      } catch (err) {}
 
       return { success: true, message: "Free plan activated successfully!" };
     } else {
@@ -116,6 +123,13 @@ export async function checkoutPlan(planId: string) {
             },
           },
         });
+
+        try {
+          await pusherServer.trigger("admin-notifications", "new-plan-checkout", {
+            message: `User ${user.username} created an invoice for plan: ${plan.name}`,
+            time: new Date().toISOString(),
+          });
+        } catch (err) {}
 
         return {
           success: true,
