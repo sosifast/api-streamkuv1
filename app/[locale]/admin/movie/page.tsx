@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import Pagination from "../components/Pagination";
 import Link from "next/link";
 import { PencilSquareIcon, PlusIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
+import DeleteButton from "../components/DeleteButton";
+import { deleteMovie } from "./actions";
 
 export const metadata = {
   title: "Movies — DB Movie Admin",
@@ -208,6 +210,11 @@ export default async function AdminMoviePage({
                           <PencilSquareIcon className="h-3 w-3" />
                           Edit
                         </Link>
+                        <DeleteButton 
+                          id={movie.id} 
+                          action={deleteMovie} 
+                          entityName="Movie" 
+                        />
                       </div>
                     </td>
                   </tr>

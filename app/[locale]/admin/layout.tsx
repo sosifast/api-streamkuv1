@@ -26,8 +26,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { label: t("dashboard"), href: "/admin/dashboard", icon: HomeIcon },
     { label: t("users"), href: "/admin/user", icon: UsersIcon },
     { label: t("movies"), href: "/admin/movie", icon: FilmIcon },
-    { label: t("plans"), href: "/admin/plan", icon: CreditCardIcon },
+    { label: t("plans"), href: "/admin/plan", icon: DocumentTextIcon },
     { label: t("historyPlan"), href: "/admin/history-plan", icon: ClockIcon },
+    { label: t("paymentGateway"), href: "/admin/payment-gateway", icon: CreditCardIcon },
   ];
 
   return (

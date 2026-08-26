@@ -126,3 +126,19 @@ export async function updateMovie(
 
   redirect("/admin/movie");
 }
+
+export async function deleteMovie(id: string) {
+  try {
+    await prisma.movie.delete({
+      where: { id },
+    });
+  } catch (err) {
+    console.error("Delete movie error:", err);
+    throw new Error("Failed to delete movie");
+  }
+
+  // Use revalidatePath to refresh the page cache after deletion. But since it redirects anyway, this might not be needed.
+  // We'll redirect just in case or we don't even need to redirect if it's called via Server Action without reloading,
+  // but to be safe and consistent with other actions:
+  redirect("/admin/movie");
+}
