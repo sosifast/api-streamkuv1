@@ -1,0 +1,117 @@
+{
+  "HomePage": {
+    "title": "DBMovie",
+    "nav": {
+      "features": "功能",
+      "endpoints": "端点",
+      "docs": "文档",
+      "dashboard": "仪表板",
+      "logout": "登出",
+      "signIn": "登录",
+      "getStarted": "开始使用",
+      "plans": "计划",
+      "home": "首页"
+    },
+    "hero": {
+      "apiLive": "API v1 现已上线",
+      "title": "终极 API 用于",
+      "titleHighlight": "流媒体内容。",
+      "desc": "完全访问数千部电影、电视剧数据和高质量流媒体链接。为需要速度和可靠性的开发人员而构建。",
+      "generateKey": "生成 API 密钥",
+      "readDocs": "阅读文档"
+    },
+    "features": {
+      "fast": {
+        "title": "闪电般快速",
+        "desc": "API 响应时间低于 50 毫秒，具有激进的缓存。"
+      },
+      "ready": {
+        "title": "为开发人员准备",
+        "desc": "与 cURL、Node.js、Python 和 PHP 轻松集成。"
+      },
+      "secure": {
+        "title": "安全可靠",
+        "desc": "99.9% 的正常运行时间，具有 DDoS 保护和速率限制。"
+      }
+    },
+    "catalog": {
+      "title": "一个 API，所有内容",
+      "desc": "我们收集和分类各种娱乐类型，因此您的应用永远不会缺少内容。",
+      "movies": {
+        "label": "电影",
+        "desc": "立即访问电影数据、海报、类型和流媒体 URL。"
+      },
+      "drama": {
+        "label": "电视剧",
+        "desc": "获取连续剧、剧集和完整详细信息的列表。"
+      },
+      "short": {
+        "label": "短剧",
+        "desc": "带有剧集列表的热门短片内容。"
+      },
+      "anime": {
+        "label": "动漫",
+        "desc": "通过分辨率和流媒体信息探索最新的动漫世界。"
+      }
+    },
+    "endpoints": {
+      "title": "像复制粘贴一样简单的集成",
+      "desc": "一致的 JSON 结构，易于解析，可直接在 UI 中使用。不再需要复杂的 HTML 抓取或解析。",
+      "ep1": "获取今天最受欢迎的电影",
+      "ep2": "按标题搜索电影",
+      "ep3": "获取特定电影详情",
+      "ep4": "获取电影流媒体链接"
+    },
+    "cta": {
+      "title": "准备好构建您的应用了吗？",
+      "desc": "加入数百名其他开发人员，今天就开始构建您的流媒体应用。",
+      "start": "立即开始 — 免费"
+    }
+  },
+  "DocsPage": {
+    "title": "API 文档",
+    "nav": {
+      "gettingStarted": "入门",
+      "movie": "电影",
+      "serial": "连续剧",
+      "liveTv": "直播电视"
+    },
+    "header": {
+      "title": "API 参考",
+      "desc": "与 DB Movie API 集成的指南，以获取最新的电影、连续剧和流媒体信息列表。"
+    },
+    "sections": {
+      "movieDesc": "用于管理和获取电影数据的端点。",
+      "serialDesc": "用于管理和获取连续剧/电视剧数据的端点。",
+      "liveTvDesc": "用于管理和获取直播电视/IPTV数据的端点。"
+    },
+    "docs": {
+      "auth": "所有 API 请求都需要使用带有 Bearer YOUR_API_KEY 格式的 Authorization 标头。",
+      "response": "所有端点都返回带有 status、message 和 data 格式的 JSON。错误以 error 属性格式返回。",
+      "movieTrending": "获取热门电影列表。",
+      "movieSearch": "按标题搜索电影。",
+      "movieDetail": "获取电影详细信息以及演员阵容和元数据。",
+      "movieStream": "获取电影的流媒体服务器 URL 列表。",
+      "serialTrending": "获取热门连续剧/电视剧列表。",
+      "serialSearch": "按标题搜索连续剧/电视剧。",
+      "serialDetail": "获取连续剧/电视剧的详细信息。",
+      "serialStream": "获取特定剧集的流媒体服务器 URL 列表。",
+      "liveTvCountry": "获取所有可用于直播电视的国家列表。",
+      "liveTvCategory": "获取所有可用于直播电视的类别列表。",
+      "liveTvSearch": "按名称搜索直播电视频道。",
+      "liveTvList": "获取直播电视频道列表。可以按国家和类别分类进行过滤。",
+      "liveTvStream": "获取特定直播电视频道的流媒体服务器URL列表。"
+    }
+  },
+  "PlansPage": {
+    "title": "简单、透明的 ",
+    "titleHighlight": "定价",
+    "desc": "选择最适合您需求的计划。无论您是刚刚起步还是在全球范围内扩展，我们都能满足您的需求。",
+    "perMonth": " / 月",
+    "mostPopular": "最受欢迎",
+    "featureRequests": "API请求 / 月",
+    "featureBandwidth": "每天的MB带宽",
+    "featureDuration": "天期限",
+    "buttonSelect": "选择计划"
+  }
+}

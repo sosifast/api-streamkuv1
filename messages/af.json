@@ -1,0 +1,117 @@
+{
+  "HomePage": {
+    "title": "DBMovie",
+    "nav": {
+      "features": "Kenmerke",
+      "endpoints": "Eindpunte",
+      "docs": "Dokumentasie",
+      "dashboard": "Paneelbord",
+      "logout": "Teken uit",
+      "signIn": "Teken in",
+      "getStarted": "Begin",
+      "plans": "Planne",
+      "home": "Tuis"
+    },
+    "hero": {
+      "apiLive": "API v1 is nou regstreeks",
+      "title": "Die uiteindelike API vir",
+      "titleHighlight": "Stroominhoud.",
+      "desc": "Kry volle toegang tot duisende flieks, dramareeksdata en hoëgehalte-stroomskakels. Gebou vir ontwikkelaars wat spoed en betroubaarheid wil hê.",
+      "generateKey": "Genereer API-sleutel",
+      "readDocs": "Lees Dokumentasie"
+    },
+    "features": {
+      "fast": {
+        "title": "Weerligvinnig",
+        "desc": "API-reaksie onder 50ms met aggressiewe kaching."
+      },
+      "ready": {
+        "title": "Gereed vir Ontwikkelaars",
+        "desc": "Maklike integrasie met cURL, Node.js, Python, & PHP."
+      },
+      "secure": {
+        "title": "Veilig en Betroubaar",
+        "desc": "99.9% bytyd met DDoS-beskerming en Koersbeperking."
+      }
+    },
+    "catalog": {
+      "title": "Een API, Alle Inhoud",
+      "desc": "Ons versamel en kategoriseer verskeie soorte vermaak sodat jou toep nooit sonder inhoud opraak nie.",
+      "movies": {
+        "label": "Flieks",
+        "desc": "Kry onmiddellik toegang tot fliekdata, plakkate, genres en stroom-URL's."
+      },
+      "drama": {
+        "label": "Drama",
+        "desc": "Kry lyste van dramareekse, episodes en volledige besonderhede."
+      },
+      "short": {
+        "label": "Kort Drama",
+        "desc": "Gewilde kortduurinhoud met episodelyste."
+      },
+      "anime": {
+        "label": "Anime",
+        "desc": "Verken die nuutste anime-wêreld met resolusie- en stroominligting."
+      }
+    },
+    "endpoints": {
+      "title": "Integrasie so maklik soos kopieer-en-plak",
+      "desc": "Konsekwente JSON-struktuur, maklik om te ontleed en gereed om direk in u UI te gebruik. Geen komplekse HTML-skraping of -ontleding meer nie.",
+      "ep1": "Kry vandag se gewildste flieks",
+      "ep2": "Soek flieks volgens titel",
+      "ep3": "Kry spesifieke fliekbesonderhede",
+      "ep4": "Kry fliekstroomskakels"
+    },
+    "cta": {
+      "title": "Gereed om jou toep te bou?",
+      "desc": "Sluit aan by honderde ander ontwikkelaars en begin vandag jou stroomtoep bou.",
+      "start": "Begin Nou — Gratis"
+    }
+  },
+  "DocsPage": {
+    "title": "API-dokumentasie",
+    "nav": {
+      "gettingStarted": "Aan die gang",
+      "movie": "Fliek",
+      "serial": "Reeks",
+      "liveTv": "Regstreekse TV"
+    },
+    "header": {
+      "title": "API-verwysing",
+      "desc": "Integrasiegids met DB Movie API om die nuutste lys flieks, reekse en stroominligting te kry."
+    },
+    "sections": {
+      "movieDesc": "Eindpunte wat gebruik word om fliekdata te bestuur en te gaan haal.",
+      "serialDesc": "Eindpunte wat gebruik word om reeks-/dramadata te bestuur en te gaan haal.",
+      "liveTvDesc": "Eindpunte wat gebruik word om Regstreekse TV / IPTV-data te bestuur en te gaan haal."
+    },
+    "docs": {
+      "auth": "Alle API-versoeke moet die Authorization-opskrif met die Bearer YOUR_API_KEY-formaat gebruik.",
+      "response": "Alle eindpunte gee JSON terug met status-, message- en data-formaat. Foute word teruggestuur in die error-eienskapformaat.",
+      "movieTrending": "Kry 'n lys van gewilde flieks.",
+      "movieSearch": "Soek flieks volgens titel.",
+      "movieDetail": "Kry besonderhede van 'n fliek saam met rolverdeling en metadata.",
+      "movieStream": "Kry 'n lys van stroombediener-URL's vir die fliek.",
+      "serialTrending": "Kry 'n lys van gewilde reekse/dramas.",
+      "serialSearch": "Soek reekse/dramas volgens titel.",
+      "serialDetail": "Kry besonderhede van 'n reeks/drama.",
+      "serialStream": "Kry 'n lys van stroombediener-URL's vir 'n spesifieke episode.",
+      "liveTvCountry": "Kry 'n lys van alle beskikbare lande vir Regstreekse TV.",
+      "liveTvCategory": "Kry 'n lys van alle beskikbare kategorieë vir Regstreekse TV.",
+      "liveTvSearch": "Soek Regstreekse TV-strome by naam.",
+      "liveTvList": "Kry 'n lys van Regstreekse TV-strome. Kan gefiltreer word volgens land- en kategorie-slakke.",
+      "liveTvStream": "Kry 'n lys van stroombediener-URL's vir 'n spesifieke Regstreekse TV-stroom."
+    }
+  },
+  "PlansPage": {
+    "title": "Eenvoudige, Deursigtige ",
+    "titleHighlight": "Pryse",
+    "desc": "Kies die plan wat die beste by u behoeftes pas.",
+    "perMonth": " / maand",
+    "mostPopular": "Gewildste",
+    "featureRequests": "API-versoeke / maand",
+    "featureBandwidth": "MB bandwydte per dag",
+    "featureDuration": "Dae duur",
+    "buttonSelect": "Kies Plan"
+  }
+}

@@ -1,0 +1,185 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserLevel {
+  Member
+  Admin
+}
+
+enum UserStatus {
+  Active
+  NotActive
+  Suspend
+}
+
+enum PaymentStatus {
+  Pending
+  Error
+  Expired
+  Cancel
+  Success
+}
+
+enum MovieType {
+  Movie
+  Drama
+}
+
+model User {
+  id                  String    @id @default(cuid())
+  username            String    @unique
+  email               String    @unique
+  password            String
+  level               UserLevel @default(Member)
+  status              UserStatus @default(Active)
+  membershipPlanId    String?   @map("membership_plan_id")
+  membershipExpiredAt DateTime? @map("membership_expired_at")
+  apiKey              String?   @unique @map("api_key")
+  apiRequestsCount    Int       @default(0) @map("api_requests_count")
+  bandwithUsage       Float     @default(0) @map("bandwith_usage")
+  createdAt           DateTime  @default(now()) @map("create_at")
+  updatedAt           DateTime  @updatedAt @map("update_at")
+
+  membershipPlan     MembershipPlan?     @relation(fields: [membershipPlanId], references: [id])
+  historyMemberships HistoryMembership[]
+
+  @@map("user")
+}
+
+model MembershipPlan {
+  id                 String    @id @default(cuid())
+  name               String
+  priceIdr           Decimal   @map("price_idr") @db.Decimal(12, 2)
+  priceUsd           Decimal   @map("price_usd") @db.Decimal(12, 2)
+  expired            Int
+  requestLimit       Int       @map("request_limit")
+  bandwithLimitPerDay Int      @map("bandwith_limit_perday")
+  createdAt          DateTime  @default(now()) @map("create_at")
+  updatedAt          DateTime  @updatedAt @map("update_at")
+
+  users              User[]
+  historyMemberships HistoryMembership[]
+
+  @@map("membership_plan")
+}
+
+model HistoryMembership {
+  id               String        @id @default(cuid())
+  userId           String        @map("id_user")
+  membershipPlanId String        @map("id_membership_plan")
+  statusPayment    PaymentStatus @default(Pending) @map("status_payment")
+  detailPayment    Json?         @map("detail_payment")
+  invoice          String?
+  createdAt        DateTime      @default(now()) @map("create_at")
+  updatedAt        DateTime      @updatedAt @map("update_at")
+
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  membershipPlan MembershipPlan  @relation(fields: [membershipPlanId], references: [id], onDelete: Cascade)
+
+  @@map("history_membership")
+}
+
+model Movie {
+  id              String   @id @default(cuid())
+  movieName       String   @map("movie_name")
+  type            MovieType @default(Movie)
+  desc            String?  @db.Text
+  coverImageUrl   String?  @map("cover_image_url")
+  bannerImageUrl  String?  @map("banner_image_url")
+  trailerUrl      String?  @map("trailer_url")
+  castDetail      Json?    @map("cast_detail")
+  genre           Json?    @map("genre")
+  year            Int?
+  createdAt       DateTime @default(now()) @map("create_at")
+  updatedAt       DateTime @updatedAt @map("update_at")
+
+  movieUrls MovieUrl[]
+  dramaUrls DramaUrl[]
+
+  @@map("movie")
+}
+
+model MovieUrl {
+  id          String  @id @default(cuid())
+  movieId     String  @map("id_movie")
+  streamUrl1  String  @map("stream_url_1")
+  streamUrl2  String? @map("stream_url_2")
+  streamUrl3  String? @map("stream_url_3")
+  streamUrl4  String? @map("stream_url_4")
+  streamUrl5  String? @map("stream_url_5")
+
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@map("movie_url")
+}
+
+model DramaUrl {
+  id          String  @id @default(cuid())
+  movieId     String  @map("id_movie")
+  episode     Int
+  streamUrl1  String  @map("stream_url_1")
+  streamUrl2  String? @map("stream_url_2")
+  streamUrl3  String? @map("stream_url_3")
+  streamUrl4  String? @map("stream_url_4")
+  streamUrl5  String? @map("stream_url_5")
+
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@map("drama_url")
+}
+
+model CountryIptv {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now()) @map("create_at")
+  updatedAt DateTime @updatedAt @map("update_at")
+
+  iptvs Iptv[]
+
+  @@map("country_iptv")
+}
+
+model CategoryIptv {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now()) @map("create_at")
+  updatedAt DateTime @updatedAt @map("update_at")
+
+  iptvs Iptv[]
+
+  @@map("category_iptv")
+}
+
+model Iptv {
+  id              String   @id @default(cuid())
+  countryIptvId   String   @map("id_country_iptv")
+  categoryIptvId  String   @map("id_category_iptv")
+  name            String
+  slug            String   @unique
+  coverUrl        String?  @map("cover_url")
+  streamUrl1      String   @map("stream_url_1")
+  streamUrl2      String?  @map("stream_url_2")
+  streamUrl3      String?  @map("stream_url_3")
+  streamUrl4      String?  @map("stream_url_4")
+  streamUrl5      String?  @map("stream_url_5")
+  createdAt       DateTime @default(now()) @map("create_at")
+  updatedAt       DateTime @updatedAt @map("update_at")
+
+  country  CountryIptv  @relation(fields: [countryIptvId], references: [id], onDelete: Cascade)
+  category CategoryIptv @relation(fields: [categoryIptvId], references: [id], onDelete: Cascade)
+
+  @@map("iptv")
+}

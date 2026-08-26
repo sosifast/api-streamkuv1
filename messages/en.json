@@ -1,0 +1,117 @@
+{
+  "HomePage": {
+    "title": "DBMovie",
+    "nav": {
+      "features": "Features",
+      "endpoints": "Endpoints",
+      "docs": "Documentation",
+      "dashboard": "Dashboard",
+      "logout": "Logout",
+      "signIn": "Sign In",
+      "getStarted": "Get Started",
+      "plans": "Plans",
+      "home": "Home"
+    },
+    "hero": {
+      "apiLive": "API v1 is now live",
+      "title": "The Ultimate API for",
+      "titleHighlight": "Streaming Content.",
+      "desc": "Get full access to thousands of movies, drama series data, and high-quality stream links. Built for developers who want speed and reliability.",
+      "generateKey": "Generate API Key",
+      "readDocs": "Read Documentation"
+    },
+    "features": {
+      "fast": {
+        "title": "Lightning Fast",
+        "desc": "API response under 50ms with aggressive caching."
+      },
+      "ready": {
+        "title": "Developer Ready",
+        "desc": "Easy integration with cURL, Node.js, Python, & PHP."
+      },
+      "secure": {
+        "title": "Secure & Reliable",
+        "desc": "99.9% uptime with DDoS protection and Rate Limiting."
+      }
+    },
+    "catalog": {
+      "title": "One API, All Content",
+      "desc": "We aggregate and categorize various entertainment types so your app never runs out of content.",
+      "movies": {
+        "label": "Movies",
+        "desc": "Access movie data, posters, genres, and stream URLs instantly."
+      },
+      "drama": {
+        "label": "Drama",
+        "desc": "Get lists of serial dramas, episodes, and complete details."
+      },
+      "short": {
+        "label": "Short Drama",
+        "desc": "Trending short-duration content with episode lists."
+      },
+      "anime": {
+        "label": "Anime",
+        "desc": "Explore the latest anime world with resolution and stream info."
+      }
+    },
+    "endpoints": {
+      "title": "Integration as Easy as Copy-Paste",
+      "desc": "Consistent JSON structure, easy to parse, and ready to use directly in your UI. No more complex HTML scraping or parsing.",
+      "ep1": "Get today's most popular movies",
+      "ep2": "Search movies by title",
+      "ep3": "Get specific movie details",
+      "ep4": "Get movie stream links"
+    },
+    "cta": {
+      "title": "Ready to Build Your App?",
+      "desc": "Join hundreds of other developers and start building your streaming app today.",
+      "start": "Start Now — Free"
+    }
+  },
+  "DocsPage": {
+    "title": "API Docs",
+    "nav": {
+      "gettingStarted": "Getting Started",
+      "movie": "Movie",
+      "serial": "Serial",
+      "liveTv": "Live TV"
+    },
+    "header": {
+      "title": "API Reference",
+      "desc": "Integration guide with DB Movie API to get the latest list of movies, serials, and streaming information."
+    },
+    "sections": {
+      "movieDesc": "Endpoints used to manage and fetch Movie data.",
+      "serialDesc": "Endpoints used to manage and fetch Serial / Drama data.",
+      "liveTvDesc": "Endpoints used to manage and fetch Live TV / IPTV data."
+    },
+    "docs": {
+      "auth": "All API requests need to use the Authorization header with the Bearer YOUR_API_KEY format.",
+      "response": "All endpoints return JSON with status, message, and data format. Errors are returned in the error property format.",
+      "movieTrending": "Get a list of trending movies.",
+      "movieSearch": "Search for movies by title.",
+      "movieDetail": "Get details of a movie along with cast and metadata.",
+      "movieStream": "Get a list of streaming server URLs for the movie.",
+      "serialTrending": "Get a list of trending serials/dramas.",
+      "serialSearch": "Search for serials/dramas by title.",
+      "serialDetail": "Get details of a serial/drama.",
+      "serialStream": "Get a list of streaming server URLs for a specific episode.",
+      "liveTvCountry": "Get a list of all available countries for Live TV.",
+      "liveTvCategory": "Get a list of all available categories for Live TV.",
+      "liveTvSearch": "Search Live TV streams by name.",
+      "liveTvList": "Get a list of Live TV streams. Can be filtered by country and category slugs.",
+      "liveTvStream": "Get a list of streaming server URLs for a specific Live TV stream."
+    }
+  },
+  "PlansPage": {
+    "title": "Simple, Transparent ",
+    "titleHighlight": "Pricing",
+    "desc": "Choose the plan that best fits your needs. Whether you're just starting out or scaling globally, we have you covered.",
+    "perMonth": " / month",
+    "mostPopular": "Most Popular",
+    "featureRequests": "API requests / month",
+    "featureBandwidth": "MB bandwidth per day",
+    "featureDuration": "Days duration",
+    "buttonSelect": "Choose Plan"
+  }
+}

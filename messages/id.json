@@ -1,0 +1,117 @@
+{
+  "HomePage": {
+    "title": "DBMovie",
+    "nav": {
+      "features": "Fitur",
+      "endpoints": "Endpoints",
+      "docs": "Dokumentasi",
+      "dashboard": "Dasbor",
+      "logout": "Keluar",
+      "signIn": "Masuk",
+      "getStarted": "Mulai",
+      "plans": "Paket",
+      "home": "Beranda"
+    },
+    "hero": {
+      "apiLive": "API v1 sekarang live",
+      "title": "API Ultimate untuk",
+      "titleHighlight": "Konten Streaming.",
+      "desc": "Dapatkan akses penuh ke ribuan data film, serial drama, dan link stream berkualitas tinggi. Dibangun untuk developer yang menginginkan kecepatan dan keandalan.",
+      "generateKey": "Buat API Key",
+      "readDocs": "Baca Dokumentasi"
+    },
+    "features": {
+      "fast": {
+        "title": "Secepat Kilat",
+        "desc": "Response API kurang dari 50ms dengan caching agresif."
+      },
+      "ready": {
+        "title": "Siap untuk Developer",
+        "desc": "Integrasi mudah dengan cURL, Node.js, Python, & PHP."
+      },
+      "secure": {
+        "title": "Aman & Handal",
+        "desc": "Uptime 99.9% dengan proteksi DDoS dan Rate Limiting."
+      }
+    },
+    "catalog": {
+      "title": "Satu API, Semua Konten",
+      "desc": "Kami mengumpulkan dan mengkategorikan berbagai jenis hiburan agar aplikasi Anda tidak pernah kekurangan konten.",
+      "movies": {
+        "label": "Movies",
+        "desc": "Akses data film, poster, genre, dan stream URL secara instan."
+      },
+      "drama": {
+        "label": "Drama",
+        "desc": "Dapatkan daftar drama berseri, episode, dan detail lengkap."
+      },
+      "short": {
+        "label": "Short Drama",
+        "desc": "Konten durasi pendek yang sedang tren dengan list episode."
+      },
+      "anime": {
+        "label": "Anime",
+        "desc": "Jelajahi dunia anime terbaru dengan info resolusi dan stream."
+      }
+    },
+    "endpoints": {
+      "title": "Integrasi Semudah Copy-Paste",
+      "desc": "Struktur JSON yang konsisten, mudah di-parsing, dan siap dipakai langsung ke UI Anda. Tidak perlu lagi scraping atau parsing HTML rumit.",
+      "ep1": "Dapatkan film terpopuler hari ini",
+      "ep2": "Cari film berdasarkan judul",
+      "ep3": "Ambil detail spesifik film",
+      "ep4": "Dapatkan link stream film"
+    },
+    "cta": {
+      "title": "Siap Membangun Aplikasi Anda?",
+      "desc": "Bergabung dengan ratusan developer lain dan mulai kembangkan aplikasi streaming Anda hari ini.",
+      "start": "Mulai Sekarang — Gratis"
+    }
+  },
+  "DocsPage": {
+    "title": "API Docs",
+    "nav": {
+      "gettingStarted": "Mulai",
+      "movie": "Film",
+      "serial": "Serial",
+      "liveTv": "Live TV"
+    },
+    "header": {
+      "title": "Referensi API",
+      "desc": "Panduan integrasi dengan DB Movie API untuk mendapatkan daftar film, serial, dan informasi streaming terbaru."
+    },
+    "sections": {
+      "movieDesc": "Endpoint yang digunakan untuk mengelola dan mengambil data Film.",
+      "serialDesc": "Endpoint yang digunakan untuk mengelola dan mengambil data Serial / Drama.",
+      "liveTvDesc": "Endpoint yang digunakan untuk mengelola dan mengambil data Live TV / IPTV."
+    },
+    "docs": {
+      "auth": "Semua request API perlu menggunakan header Authorization dengan format Bearer YOUR_API_KEY.",
+      "response": "Semua endpoint mengembalikan JSON dengan format status, message, dan data. Error dikembalikan dalam format properti error.",
+      "movieTrending": "Mendapatkan daftar film yang sedang trending.",
+      "movieSearch": "Mencari film berdasarkan judul.",
+      "movieDetail": "Mendapatkan detail dari sebuah film beserta cast dan metadata.",
+      "movieStream": "Mendapatkan daftar URL server streaming untuk film tersebut.",
+      "serialTrending": "Mendapatkan daftar serial/drama yang sedang trending.",
+      "serialSearch": "Mencari serial/drama berdasarkan judul.",
+      "serialDetail": "Mendapatkan detail dari sebuah serial/drama.",
+      "serialStream": "Mendapatkan daftar URL server streaming untuk episode spesifik.",
+      "liveTvCountry": "Mendapatkan daftar semua negara yang tersedia untuk Live TV.",
+      "liveTvCategory": "Mendapatkan daftar semua kategori yang tersedia untuk Live TV.",
+      "liveTvSearch": "Mencari streaming Live TV berdasarkan nama.",
+      "liveTvList": "Mendapatkan daftar Live TV. Bisa difilter berdasarkan slug negara dan kategori.",
+      "liveTvStream": "Mendapatkan daftar URL server streaming untuk Live TV spesifik."
+    }
+  },
+  "PlansPage": {
+    "title": "Harga Simpel & ",
+    "titleHighlight": "Transparan",
+    "desc": "Pilih paket yang paling sesuai dengan kebutuhan Anda. Dari coba-coba hingga skala global, kami siap melayani.",
+    "perMonth": " / bulan",
+    "mostPopular": "Paling Populer",
+    "featureRequests": "Permintaan API / bulan",
+    "featureBandwidth": "MB bandwidth per hari",
+    "featureDuration": "Hari durasi aktif",
+    "buttonSelect": "Pilih Paket"
+  }
+}

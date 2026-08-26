@@ -1,0 +1,117 @@
+{
+  "HomePage": {
+    "title": "DBMovie",
+    "nav": {
+      "features": "Funktionen",
+      "endpoints": "Endpunkte",
+      "docs": "Dokumentation",
+      "dashboard": "Dashboard",
+      "logout": "Abmelden",
+      "signIn": "Anmelden",
+      "getStarted": "Loslegen",
+      "plans": "Pläne",
+      "home": "Startseite"
+    },
+    "hero": {
+      "apiLive": "API v1 ist jetzt live",
+      "title": "Die ultimative API für",
+      "titleHighlight": "Streaming-Inhalte.",
+      "desc": "Erhalten Sie vollen Zugriff auf Tausende von Filmen, Dramaserien und hochwertigen Stream-Links. Entwickelt für Entwickler, die Geschwindigkeit und Zuverlässigkeit wollen.",
+      "generateKey": "API-Schlüssel generieren",
+      "readDocs": "Dokumentation lesen"
+    },
+    "features": {
+      "fast": {
+        "title": "Blitzschnell",
+        "desc": "API-Antwort unter 50 ms mit aggressivem Caching."
+      },
+      "ready": {
+        "title": "Bereit für Entwickler",
+        "desc": "Einfache Integration mit cURL, Node.js, Python und PHP."
+      },
+      "secure": {
+        "title": "Sicher & Zuverlässig",
+        "desc": "99,9 % Betriebszeit mit DDoS-Schutz und Ratenbegrenzung."
+      }
+    },
+    "catalog": {
+      "title": "Eine API, alle Inhalte",
+      "desc": "Wir sammeln und kategorisieren verschiedene Unterhaltungsarten, damit Ihrer App nie die Inhalte ausgehen.",
+      "movies": {
+        "label": "Filme",
+        "desc": "Greifen Sie sofort auf Filmdaten, Poster, Genres und Stream-URLs zu."
+      },
+      "drama": {
+        "label": "Drama",
+        "desc": "Holen Sie sich Listen von Dramaserien, Episoden und vollständigen Details."
+      },
+      "short": {
+        "label": "Kurzdrama",
+        "desc": "Trendige Kurzzeitinhalte mit Episodenlisten."
+      },
+      "anime": {
+        "label": "Anime",
+        "desc": "Erkunden Sie die neueste Anime-Welt mit Auflösungs- und Stream-Informationen."
+      }
+    },
+    "endpoints": {
+      "title": "Integration so einfach wie Kopieren und Einfügen",
+      "desc": "Konsistente JSON-Struktur, einfach zu parsen und direkt in Ihrer Benutzeroberfläche verwendbar. Kein komplexes HTML-Scraping oder Parsing mehr.",
+      "ep1": "Holen Sie sich die beliebtesten Filme von heute",
+      "ep2": "Suchen Sie Filme nach Titel",
+      "ep3": "Holen Sie sich spezifische Filmdetails",
+      "ep4": "Holen Sie sich Film-Stream-Links"
+    },
+    "cta": {
+      "title": "Bereit, Ihre App zu erstellen?",
+      "desc": "Schließen Sie sich Hunderten anderen Entwicklern an und beginnen Sie noch heute mit der Erstellung Ihrer Streaming-App.",
+      "start": "Jetzt starten — Kostenlos"
+    }
+  },
+  "DocsPage": {
+    "title": "API-Dokumentation",
+    "nav": {
+      "gettingStarted": "Erste Schritte",
+      "movie": "Film",
+      "serial": "Serie",
+      "liveTv": "Live-TV"
+    },
+    "header": {
+      "title": "API-Referenz",
+      "desc": "Integrationshandbuch mit DB Movie API, um die neueste Liste von Filmen, Serien und Streaming-Informationen zu erhalten."
+    },
+    "sections": {
+      "movieDesc": "Endpunkte zum Verwalten und Abrufen von Filmdaten.",
+      "serialDesc": "Endpunkte zum Verwalten und Abrufen von Serien-/Dramadaten.",
+      "liveTvDesc": "Endpunkte zur Verwaltung und zum Abruf von Live-TV-/IPTV-Daten."
+    },
+    "docs": {
+      "auth": "Alle API-Anfragen müssen den Authorization-Header im Format Bearer YOUR_API_KEY verwenden.",
+      "response": "Alle Endpunkte geben JSON im Format status, message und data zurück. Fehler werden im Format der error-Eigenschaft zurückgegeben.",
+      "movieTrending": "Holen Sie sich eine Liste der angesagten Filme.",
+      "movieSearch": "Suchen Sie Filme nach Titel.",
+      "movieDetail": "Holen Sie sich Details zu einem Film zusammen mit Besetzung und Metadaten.",
+      "movieStream": "Holen Sie sich eine Liste von Streaming-Server-URLs für den Film.",
+      "serialTrending": "Holen Sie sich eine Liste von angesagten Serien/Dramen.",
+      "serialSearch": "Suchen Sie Serien/Dramen nach Titel.",
+      "serialDetail": "Holen Sie sich Details zu einer Serie/einem Drama.",
+      "serialStream": "Holen Sie sich eine Liste von Streaming-Server-URLs für eine bestimmte Episode.",
+      "liveTvCountry": "Holen Sie sich eine Liste aller verfügbaren Länder für Live-TV.",
+      "liveTvCategory": "Holen Sie sich eine Liste aller verfügbaren Kategorien für Live-TV.",
+      "liveTvSearch": "Suchen Sie Live-TV-Streams nach Namen.",
+      "liveTvList": "Holen Sie sich eine Liste der Live-TV-Streams. Kann nach Länder- und Kategorie-Slugs gefiltert werden.",
+      "liveTvStream": "Holen Sie sich eine Liste von Streaming-Server-URLs für einen bestimmten Live-TV-Stream."
+    }
+  },
+  "PlansPage": {
+    "title": "Einfache, Transparente ",
+    "titleHighlight": "Preise",
+    "desc": "Wählen Sie den Plan, der am besten zu Ihren Anforderungen passt. Wir decken alles ab.",
+    "perMonth": " / monat",
+    "mostPopular": "Beliebteste",
+    "featureRequests": "API-Anfragen / Monat",
+    "featureBandwidth": "MB Bandbreite pro Tag",
+    "featureDuration": "Tage Dauer",
+    "buttonSelect": "Plan auswählen"
+  }
+}

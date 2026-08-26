@@ -1,0 +1,117 @@
+{
+  "HomePage": {
+    "title": "DBMovie",
+    "nav": {
+      "features": "特徴",
+      "endpoints": "エンドポイント",
+      "docs": "ドキュメント",
+      "dashboard": "ダッシュボード",
+      "logout": "ログアウト",
+      "signIn": "サインイン",
+      "getStarted": "始める",
+      "plans": "プラン",
+      "home": "ホーム"
+    },
+    "hero": {
+      "apiLive": "API v1がライブになりました",
+      "title": "究極のAPI",
+      "titleHighlight": "ストリーミングコンテンツ。",
+      "desc": "何千もの映画、ドラマシリーズのデータ、高品質のストリームリンクに完全にアクセスできます。スピードと信頼性を求める開発者のために構築されています。",
+      "generateKey": "APIキーを生成",
+      "readDocs": "ドキュメントを読む"
+    },
+    "features": {
+      "fast": {
+        "title": "超高速",
+        "desc": "積極的なキャッシュによる50ミリ秒未満のAPI応答。"
+      },
+      "ready": {
+        "title": "開発者向け",
+        "desc": "cURL、Node.js、Python、PHPとの簡単な統合。"
+      },
+      "secure": {
+        "title": "安全で信頼性が高い",
+        "desc": "DDoS保護とレート制限による99.9％の稼働率。"
+      }
+    },
+    "catalog": {
+      "title": "1つのAPI、すべてのコンテンツ",
+      "desc": "さまざまなエンターテイメントの種類を収集および分類しているため、アプリのコンテンツが不足することはありません。",
+      "movies": {
+        "label": "映画",
+        "desc": "映画のデータ、ポスター、ジャンル、ストリームURLに即座にアクセスできます。"
+      },
+      "drama": {
+        "label": "ドラマ",
+        "desc": "連続ドラマ、エピソード、詳細のリストを取得します。"
+      },
+      "short": {
+        "label": "ショートドラマ",
+        "desc": "エピソードリスト付きのトレンドの短編コンテンツ。"
+      },
+      "anime": {
+        "label": "アニメ",
+        "desc": "解像度とストリーム情報で最新のアニメの世界を探索してください。"
+      }
+    },
+    "endpoints": {
+      "title": "コピー＆ペーストと同じくらい簡単な統合",
+      "desc": "一貫したJSON構造。解析が簡単で、UIで直接使用できます。複雑なHTMLのスクレイピングや解析はもう必要ありません。",
+      "ep1": "今日の最も人気のある映画を取得する",
+      "ep2": "タイトルで映画を検索",
+      "ep3": "特定の映画の詳細を取得する",
+      "ep4": "映画のストリームリンクを取得する"
+    },
+    "cta": {
+      "title": "アプリを構築する準備はできましたか？",
+      "desc": "何百人もの開発者に加わって、今日からストリーミングアプリの構築を始めましょう。",
+      "start": "今すぐ始める — 無料"
+    }
+  },
+  "DocsPage": {
+    "title": "APIドキュメント",
+    "nav": {
+      "gettingStarted": "はじめる",
+      "movie": "映画",
+      "serial": "シリアル",
+      "liveTv": "ライブTV"
+    },
+    "header": {
+      "title": "APIリファレンス",
+      "desc": "DB Movie APIと統合して、映画、シリアル、ストリーミング情報の最新リストを取得するためのガイド。"
+    },
+    "sections": {
+      "movieDesc": "映画データを管理および取得するために使用されるエンドポイント。",
+      "serialDesc": "シリアル/ドラマデータを管理および取得するために使用されるエンドポイント。",
+      "liveTvDesc": "ライブTV/IPTVデータを管理および取得するために使用されるエンドポイント。"
+    },
+    "docs": {
+      "auth": "すべてのAPIリクエストは、Bearer YOUR_API_KEY形式のAuthorizationヘッダーを使用する必要があります。",
+      "response": "すべてのエンドポイントは、status、message、およびdata形式でJSONを返します。エラーはerrorプロパティ形式で返されます。",
+      "movieTrending": "トレンドの映画のリストを取得します。",
+      "movieSearch": "タイトルで映画を検索します。",
+      "movieDetail": "キャストとメタデータとともに映画の詳細を取得します。",
+      "movieStream": "映画のストリーミングサーバーURLのリストを取得します。",
+      "serialTrending": "トレンドのシリアル/ドラマのリストを取得します。",
+      "serialSearch": "タイトルでシリアル/ドラマを検索します。",
+      "serialDetail": "シリアル/ドラマの詳細を取得します。",
+      "serialStream": "特定のエピソードのストリーミングサーバーURLのリストを取得します。",
+      "liveTvCountry": "ライブTVで利用可能なすべての国のリストを取得します。",
+      "liveTvCategory": "ライブTVで利用可能なすべてのカテゴリのリストを取得します。",
+      "liveTvSearch": "名前でライブTVストリームを検索します。",
+      "liveTvList": "ライブTVストリームのリストを取得します。国とカテゴリのスラグでフィルタリングできます。",
+      "liveTvStream": "特定のライブTVストリームのストリーミングサーバーURLのリストを取得します。"
+    }
+  },
+  "PlansPage": {
+    "title": "シンプルで透明な ",
+    "titleHighlight": "価格",
+    "desc": "ニーズに最適なプランを選択してください。始めたばかりでもグローバルに展開していても、対応します。",
+    "perMonth": " / 月",
+    "mostPopular": "最も人気",
+    "featureRequests": "APIリクエスト / 月",
+    "featureBandwidth": "1日あたりのMB帯域幅",
+    "featureDuration": "日間",
+    "buttonSelect": "プランを選択"
+  }
+}

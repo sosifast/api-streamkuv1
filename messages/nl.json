@@ -1,0 +1,117 @@
+{
+  "HomePage": {
+    "title": "DBMovie",
+    "nav": {
+      "features": "Functies",
+      "endpoints": "Eindpunten",
+      "docs": "Documentatie",
+      "dashboard": "Dashboard",
+      "logout": "Uitloggen",
+      "signIn": "Aanmelden",
+      "getStarted": "Beginnen",
+      "plans": "Plannen",
+      "home": "Thuis"
+    },
+    "hero": {
+      "apiLive": "API v1 is nu live",
+      "title": "De ultieme API voor",
+      "titleHighlight": "Streaming Content.",
+      "desc": "Krijg volledige toegang tot duizenden films, dramaseries en hoogwaardige streamlinks. Gebouwd voor ontwikkelaars die snelheid en betrouwbaarheid willen.",
+      "generateKey": "Genereer API Key",
+      "readDocs": "Lees Documentatie"
+    },
+    "features": {
+      "fast": {
+        "title": "Bliksemsnel",
+        "desc": "API-respons onder 50ms met agressieve caching."
+      },
+      "ready": {
+        "title": "Klaar voor Ontwikkelaars",
+        "desc": "Eenvoudige integratie met cURL, Node.js, Python & PHP."
+      },
+      "secure": {
+        "title": "Veilig & Betrouwbaar",
+        "desc": "99,9% uptime met DDoS-bescherming en Rate Limiting."
+      }
+    },
+    "catalog": {
+      "title": "Eén API, alle content",
+      "desc": "We verzamelen en categoriseren verschillende soorten entertainment, zodat uw app nooit zonder content komt te zitten.",
+      "movies": {
+        "label": "Films",
+        "desc": "Krijg direct toegang tot filmgegevens, posters, genres en stream-URL's."
+      },
+      "drama": {
+        "label": "Drama",
+        "desc": "Ontvang lijsten met dramaseries, afleveringen en volledige details."
+      },
+      "short": {
+        "label": "Korte Drama's",
+        "desc": "Populaire kortdurende content met afleveringenlijsten."
+      },
+      "anime": {
+        "label": "Anime",
+        "desc": "Verken de nieuwste animewereld met resolutie en stream-info."
+      }
+    },
+    "endpoints": {
+      "title": "Integratie zo simpel als kopiëren en plakken",
+      "desc": "Consistente JSON-structuur, eenvoudig te parseren en klaar voor direct gebruik in uw UI. Geen ingewikkelde HTML-scraping of parsing meer.",
+      "ep1": "Haal de populairste films van vandaag op",
+      "ep2": "Zoek films op titel",
+      "ep3": "Haal specifieke filmdetails op",
+      "ep4": "Haal filmstreamlinks op"
+    },
+    "cta": {
+      "title": "Klaar om uw app te bouwen?",
+      "desc": "Sluit je aan bij honderden andere ontwikkelaars en begin vandaag nog met het bouwen van je streaming-app.",
+      "start": "Begin Nu — Gratis"
+    }
+  },
+  "DocsPage": {
+    "title": "API-documentatie",
+    "nav": {
+      "gettingStarted": "Aan de slag",
+      "movie": "Film",
+      "serial": "Serie",
+      "liveTv": "Live TV"
+    },
+    "header": {
+      "title": "API-referentie",
+      "desc": "Integratiegids met DB Movie API om de nieuwste lijst met films, series en streaminginformatie te krijgen."
+    },
+    "sections": {
+      "movieDesc": "Eindpunten om filmgegevens te beheren en op te halen.",
+      "serialDesc": "Eindpunten om serie-/dramagegevens te beheren en op te halen.",
+      "liveTvDesc": "Eindpunten die worden gebruikt om Live TV / IPTV-gegevens te beheren en op te halen."
+    },
+    "docs": {
+      "auth": "Alle API-verzoeken moeten de Authorization header gebruiken met het formaat Bearer YOUR_API_KEY.",
+      "response": "Alle eindpunten retourneren JSON met de indeling status, message en data. Fouten worden geretourneerd in de indeling van de error-eigenschap.",
+      "movieTrending": "Krijg een lijst met populaire films.",
+      "movieSearch": "Zoek naar films op titel.",
+      "movieDetail": "Ontvang details van een film samen met cast en metadata.",
+      "movieStream": "Krijg een lijst met streaming server-URL's voor de film.",
+      "serialTrending": "Krijg een lijst met populaire series/drama's.",
+      "serialSearch": "Zoek naar series/drama's op titel.",
+      "serialDetail": "Ontvang details van een serie/drama.",
+      "serialStream": "Krijg een lijst met streaming server-URL's voor een specifieke aflevering.",
+      "liveTvCountry": "Krijg een lijst met alle beschikbare landen voor Live TV.",
+      "liveTvCategory": "Krijg een lijst met alle beschikbare categorieën voor Live TV.",
+      "liveTvSearch": "Zoek Live TV-streams op naam.",
+      "liveTvList": "Ontvang een lijst met Live TV-streams. Kan worden gefilterd op land- en categorieslugs.",
+      "liveTvStream": "Krijg een lijst met streaming server-URL's voor een specifieke Live TV-stream."
+    }
+  },
+  "PlansPage": {
+    "title": "Eenvoudige, Transparante ",
+    "titleHighlight": "Prijzen",
+    "desc": "Kies het plan dat het beste bij u past. Of u nu net begint of wereldwijd schaalt, wij hebben u gedekt.",
+    "perMonth": " / maand",
+    "mostPopular": "Meest Populair",
+    "featureRequests": "API-verzoeken / maand",
+    "featureBandwidth": "MB bandbreedte per dag",
+    "featureDuration": "Dagen duur",
+    "buttonSelect": "Kies Plan"
+  }
+}
