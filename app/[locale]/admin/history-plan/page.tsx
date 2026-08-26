@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import Pagination from "../components/Pagination";
+import SyncButton from "./SyncButton";
 
 export const metadata = {
   title: "History Plan — DB Movie Admin",
@@ -123,6 +124,7 @@ export default async function AdminHistoryPlanPage({
                 <th className="px-4 py-4 text-left font-medium">Status</th>
                 <th className="px-4 py-4 text-left font-medium">Detail</th>
                 <th className="px-5 py-4 text-left font-medium">Date</th>
+                <th className="px-5 py-4 text-right font-medium">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -189,12 +191,19 @@ export default async function AdminHistoryPlanPage({
                       })}
                     </span>
                   </td>
+                  <td className="px-5 py-4 text-right">
+                    {history.statusPayment === "Pending" && 
+                     history.invoice && 
+                     !history.invoice.startsWith("INV-FREE-") && (
+                      <SyncButton id={history.id} />
+                    )}
+                  </td>
                 </tr>
               ))}
               {histories.length === 0 && (
                 <tr>
                   <td
-                    colSpan={7}
+                    colSpan={8}
                     className="py-12 text-center text-zinc-500"
                   >
                     No transaction history found
