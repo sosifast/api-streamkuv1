@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { getTranslations } from "next-intl/server";
 import { 
   KeyIcon, 
   CreditCardIcon, 
@@ -11,13 +12,19 @@ import {
 } from "@heroicons/react/24/outline";
 import { LiveRefresh } from "./live-refresh";
 
-function formatIDR(value: unknown): string {
-  return new Intl.NumberFormat("id-ID", {
+function formatCurrency(valueIDR: unknown, valueUSD: unknown, locale: string): string {
+  if (locale === 'id') {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(Number(valueIDR));
+  }
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(Number(value));
+    currency: "USD",
+  }).format(Number(valueUSD));
 }
 
 function PaymentBadge({ status }: { status: string }) {
@@ -40,9 +47,11 @@ function PaymentBadge({ status }: { status: string }) {
   );
 }
 
-export default async function DashboardPage() {
+export default async function DashboardPage({ params }: { params: Promise<{ locale: string }> }) {
   const cookieStore = await cookies();
   const userId = cookieStore.get("dbmovie_session")?.value;
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "DashboardUser" });
 
   if (!userId) {
     redirect("/auth/login");
@@ -72,10 +81,10 @@ export default async function DashboardPage() {
       {/* Welcome Header */}
       <div>
         <p className="text-xs uppercase tracking-[0.25em] text-red-400">
-          Overview
+          {t("overview")}
         </p>
         <h1 className="mt-2 font-display text-3xl font-bold text-white">
-          Welcome back, {user.username}
+          {t("welcomeBack")}, {user.username}
         </h1>
         <p className="mt-1 text-sm text-zinc-400">{user.email}</p>
       </div>
@@ -88,7 +97,7 @@ export default async function DashboardPage() {
             {user.status === "Active" ? <CheckCircleIcon className="h-6 w-6" /> : <XCircleIcon className="h-6 w-6" />}
           </div>
           <div>
-            <p className="text-xs uppercase tracking-wider text-zinc-500">Account Status</p>
+            <p className="text-xs uppercase tracking-wider text-zinc-500">{t("accountStatus")}</p>
             <p className="text-lg font-bold text-white">{user.status}</p>
           </div>
         </div>
@@ -99,7 +108,7 @@ export default async function DashboardPage() {
             <CreditCardIcon className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-xs uppercase tracking-wider text-zinc-500">Current Plan</p>
+            <p className="text-xs uppercase tracking-wider text-zinc-500">{t("currentPlan")}</p>
             <p className="text-lg font-bold text-white">
               {user.membershipPlan?.name || "No Plan"}
             </p>
@@ -112,9 +121,9 @@ export default async function DashboardPage() {
             <KeyIcon className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-xs uppercase tracking-wider text-zinc-500">API Key</p>
+            <p className="text-xs uppercase tracking-wider text-zinc-500">{t("apiKey")}</p>
             <p className="text-lg font-bold text-white">
-              {user.apiKey ? "Active" : "Not Generated"}
+              {user.apiKey ? t("active") : t("notGenerated")}
             </p>
           </div>
         </div>
@@ -124,17 +133,17 @@ export default async function DashboardPage() {
         {/* Left Column: Membership Details */}
         <div className="lg:col-span-1">
           <div className="rounded-2xl border border-white/10 bg-[#111318] p-6">
-            <h2 className="font-display text-lg font-bold text-white mb-6">Plan Details</h2>
+            <h2 className="font-display text-lg font-bold text-white mb-6">{t("planDetails")}</h2>
             
             {user.membershipPlan ? (
               <div className="space-y-5">
                 <div>
-                  <p className="text-xs text-zinc-500">Plan Name</p>
+                  <p className="text-xs text-zinc-500">{t("planName")}</p>
                   <p className="mt-1 font-medium text-white">{user.membershipPlan.name}</p>
                 </div>
                 <div>
                   <div className="flex justify-between text-xs mb-2">
-                    <span className="text-zinc-500">API Requests</span>
+                    <span className="text-zinc-500">{t("apiRequests")}</span>
                     <span className="text-white font-medium">
                       {(user.apiRequestsCount || 0).toLocaleString("id-ID")} / {user.membershipPlan.requestLimit.toLocaleString("id-ID")} req
                     </span>
@@ -148,7 +157,7 @@ export default async function DashboardPage() {
                 </div>
                 <div>
                   <div className="flex justify-between text-xs mb-2">
-                    <span className="text-zinc-500">Bandwidth Usage</span>
+                    <span className="text-zinc-500">{t("bandwidthUsage")}</span>
                     <span className="text-white font-medium">
                       {(user.bandwithUsage || 0).toLocaleString("id-ID", { maximumFractionDigits: 2 })} / {user.membershipPlan.bandwithLimitPerDay.toLocaleString("id-ID")} MB
                     </span>
@@ -161,14 +170,14 @@ export default async function DashboardPage() {
                   </div>
                 </div>
                 <div>
-                  <p className="text-xs text-zinc-500">Valid Until</p>
+                  <p className="text-xs text-zinc-500">{t("validUntil")}</p>
                   <p className="mt-1 font-medium text-white">
                     {user.membershipExpiredAt ? (
                       new Date(user.membershipExpiredAt).toLocaleDateString("id-ID", {
                         day: "numeric", month: "long", year: "numeric"
                       })
                     ) : (
-                      "Lifetime / No Expiry"
+                      t("lifetime")
                     )}
                   </p>
                 </div>
@@ -178,18 +187,18 @@ export default async function DashboardPage() {
                     href="/plan" 
                     className="block w-full rounded-xl bg-white/5 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-white/10"
                   >
-                    Upgrade Plan
+                    {t("upgradePlan")}
                   </Link>
                 </div>
               </div>
             ) : (
               <div className="text-center py-6">
-                <p className="text-sm text-zinc-400 mb-4">You don't have an active membership plan yet.</p>
+                <p className="text-sm text-zinc-400 mb-4">{t("noPlan")}</p>
                 <Link 
                   href="/plan" 
                   className="inline-flex items-center justify-center rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-red-600/25 transition hover:bg-red-500"
                 >
-                  View Plans
+                  {t("viewPlans")}
                 </Link>
               </div>
             )}
@@ -200,13 +209,13 @@ export default async function DashboardPage() {
         <div className="lg:col-span-2">
           <div className="rounded-2xl border border-white/10 bg-[#111318]">
             <div className="flex items-center justify-between border-b border-white/10 p-6">
-              <h2 className="font-display text-lg font-bold text-white">Recent Transactions</h2>
+              <h2 className="font-display text-lg font-bold text-white">{t("recentTransactions")}</h2>
               <Link 
                 href="/history-plan" 
                 className="flex items-center gap-1.5 text-xs font-medium text-zinc-400 transition hover:text-white"
               >
                 <ClockIcon className="h-4 w-4" />
-                View All
+                {t("viewAll")}
               </Link>
             </div>
             
@@ -214,10 +223,10 @@ export default async function DashboardPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-white/5 text-xs uppercase tracking-wider text-zinc-500">
-                    <th className="px-6 py-4 text-left font-medium">Plan</th>
-                    <th className="px-6 py-4 text-left font-medium">Price</th>
-                    <th className="px-6 py-4 text-left font-medium">Date</th>
-                    <th className="px-6 py-4 text-right font-medium">Status</th>
+                    <th className="px-6 py-4 text-left font-medium">{t("plan")}</th>
+                    <th className="px-6 py-4 text-left font-medium">{t("price")}</th>
+                    <th className="px-6 py-4 text-left font-medium">{t("date")}</th>
+                    <th className="px-6 py-4 text-right font-medium">{t("status")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
@@ -231,7 +240,7 @@ export default async function DashboardPage() {
                           )}
                         </td>
                         <td className="px-6 py-4 text-zinc-400">
-                          {formatIDR(history.membershipPlan.priceIdr)}
+                          {formatCurrency(history.membershipPlan.priceIdr, history.membershipPlan.priceUsd, locale)}
                         </td>
                         <td className="px-6 py-4 text-zinc-500">
                           {new Date(history.createdAt).toLocaleDateString("id-ID", {
@@ -246,7 +255,7 @@ export default async function DashboardPage() {
                   ) : (
                     <tr>
                       <td colSpan={4} className="py-12 text-center text-zinc-500">
-                        No transactions found.
+                        {t("noTransactions")}
                       </td>
                     </tr>
                   )}

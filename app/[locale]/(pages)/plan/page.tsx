@@ -3,10 +3,13 @@
 import { useEffect, useState } from "react";
 import type { MembershipPlan } from "@/app/generated/prisma/client";
 import { checkoutPlan } from "./actions";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function PlanPage() {
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("PlansPage");
   const [plans, setPlans] = useState<MembershipPlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [checkoutLoadingId, setCheckoutLoadingId] = useState<string | null>(null);
@@ -79,7 +82,7 @@ export default function PlanPage() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-8">
           <p className="text-xs uppercase tracking-[0.25em] text-red-300">Membership</p>
-          <h1 className="mt-2 font-display text-3xl font-bold text-white">Plans</h1>
+          <h1 className="mt-2 font-display text-3xl font-bold text-white">{t("title")} <span className="text-red-500">{t("titleHighlight")}</span></h1>
         </div>
 
         {plans.length === 0 ? (
@@ -93,7 +96,7 @@ export default function PlanPage() {
               >
                 <h2 className="font-display text-2xl font-bold text-white">{plan.name}</h2>
                 <p className="mt-4 text-4xl font-black text-white">
-                  Rp {Number(plan.priceIdr).toLocaleString("id-ID")}
+                  {locale === 'id' ? `Rp ${Number(plan.priceIdr).toLocaleString('id-ID')}` : `$${Number(plan.priceUsd)}`}
                 </p>
 
                 <ul className="mt-5 space-y-3 text-sm text-zinc-200">
@@ -101,19 +104,19 @@ export default function PlanPage() {
                     <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white">
                       ✓
                     </span>
-                    {plan.requestLimit.toLocaleString()} requests/bulan
+                    {plan.requestLimit.toLocaleString()} {t("featureRequests")}
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white">
                       ✓
                     </span>
-                    {(plan.bandwithLimitPerDay / 1024).toFixed(2)} GB/hari
+                    {(plan.bandwithLimitPerDay / 1024).toFixed(2)} GB {t("featureBandwidth")}
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white">
                       ✓
                     </span>
-                    {plan.expired} hari akses
+                    {plan.expired} {t("featureDuration")}
                   </li>
                 </ul>
 
@@ -128,7 +131,7 @@ export default function PlanPage() {
                       Processing...
                     </>
                   ) : (
-                    "Checkout Plan"
+                    t("buttonSelect")
                   )}
                 </button>
               </div>

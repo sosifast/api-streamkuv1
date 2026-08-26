@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link } from "@/i18n/routing";
+import { usePathname } from "@/i18n/routing";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   HomeIcon,
   UsersIcon,
@@ -15,18 +16,19 @@ import {
   TvIcon,
 } from "@heroicons/react/24/outline";
 
-const navItems = [
-  { label: "Dashboard", href: "/admin/dashboard", icon: HomeIcon },
-  { label: "Users", href: "/admin/user", icon: UsersIcon },
-  { label: "Movies", href: "/admin/movie", icon: FilmIcon },
-  { label: "Plans", href: "/admin/plan", icon: CreditCardIcon },
-  { label: "History Plan", href: "/admin/history-plan", icon: ClockIcon },
-];
-
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [iptvOpen, setIptvOpen] = useState(false);
+  const t = useTranslations("AdminSidebar");
+
+  const navItems = [
+    { label: t("dashboard"), href: "/admin/dashboard", icon: HomeIcon },
+    { label: t("users"), href: "/admin/user", icon: UsersIcon },
+    { label: t("movies"), href: "/admin/movie", icon: FilmIcon },
+    { label: t("plans"), href: "/admin/plan", icon: CreditCardIcon },
+    { label: t("historyPlan"), href: "/admin/history-plan", icon: ClockIcon },
+  ];
 
   return (
     <div className="flex min-h-screen bg-[#0b0b0f] text-white">
@@ -51,7 +53,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
           <div>
             <p className="font-display text-base font-bold tracking-wide text-white">DB Movie</p>
-            <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">Admin Panel</p>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">{t("adminPanel")}</p>
           </div>
         </div>
 
@@ -98,7 +100,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   pathname.includes("/admin/iptv") ? "text-red-400" : "text-zinc-500"
                 }`}
               />
-              IPTV Management
+              {t("iptvManagement")}
               <ChevronDownIcon
                 className={`ml-auto h-4 w-4 transition-transform ${iptvOpen ? "rotate-180" : ""}`}
               />
@@ -106,9 +108,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             {iptvOpen && (
               <div className="mt-1 space-y-1 pl-11 pr-3">
                 {[
-                  { label: "Countries", href: "/admin/iptv/country" },
-                  { label: "Categories", href: "/admin/iptv/category" },
-                  { label: "Streams", href: "/admin/iptv/stream" },
+                  { label: t("countries"), href: "/admin/iptv/country" },
+                  { label: t("categories"), href: "/admin/iptv/category" },
+                  { label: t("streams"), href: "/admin/iptv/stream" },
                 ].map((item) => {
                   const isActive =
                     pathname === item.href || pathname.startsWith(item.href + "/");
@@ -138,7 +140,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             href="/"
             className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs text-zinc-500 transition hover:bg-white/5 hover:text-zinc-300"
           >
-            ← Back to Site
+            ← {t("backToSite")}
           </Link>
         </div>
       </aside>
@@ -157,7 +159,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Bars3Icon className="h-5 w-5" />
             )}
           </button>
-          <p className="font-display text-sm font-bold text-white">DB Movie Admin</p>
+          <p className="font-display text-sm font-bold text-white">DB Movie {t("adminPanel")}</p>
         </header>
 
         {/* Page content */}

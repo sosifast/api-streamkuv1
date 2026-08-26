@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   HomeIcon,
   UserCircleIcon,
@@ -14,19 +14,20 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-export const menuItems = [
-  { label: "Dashboard", href: "/dashboard", icon: HomeIcon },
-  { label: "Account", href: "/account", icon: UserCircleIcon },
-  { label: "API Keys", href: "/api-keys", icon: KeyIcon },
-  { label: "Docs", href: "/docs", icon: BookOpenIcon },
-  { label: "Plans", href: "/plan", icon: CreditCardIcon },
-  { label: "Billing", href: "/history-plan", icon: ClockIcon },
-];
-
 export default function Topbar() {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = useTranslations("Navigation");
+
+  const menuItems = [
+    { label: t("dashboard"), href: "/dashboard", icon: HomeIcon },
+    { label: t("account"), href: "/account", icon: UserCircleIcon },
+    { label: t("apiKeys"), href: "/api-keys", icon: KeyIcon },
+    { label: t("docs"), href: "/docs", icon: BookOpenIcon },
+    { label: t("plans"), href: "/plan", icon: CreditCardIcon },
+    { label: t("billing"), href: "/history-plan", icon: ClockIcon },
+  ];
 
   const handleLogout = async () => {
     try {
@@ -78,7 +79,7 @@ export default function Topbar() {
             onClick={handleLogout}
             className="hidden rounded-lg border border-white/10 px-3.5 py-1.5 text-sm text-zinc-400 transition hover:border-red-500/40 hover:text-red-400 md:inline-flex"
           >
-            Logout
+            {t("logout")}
           </button>
 
           {/* Mobile toggle */}
@@ -122,7 +123,7 @@ export default function Topbar() {
               onClick={handleLogout}
               className="mt-2 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-zinc-400 transition hover:bg-white/5 hover:text-red-400"
             >
-              Logout
+              {t("logout")}
             </button>
           </nav>
         </div>

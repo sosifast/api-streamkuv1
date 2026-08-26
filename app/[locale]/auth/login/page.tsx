@@ -1,7 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import { useRouter, Link } from "@/i18n/routing";
+import { FormEvent } from "react";
+import { useTranslations } from "next-intl";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -9,6 +11,7 @@ export default function LoginPage() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const t = useTranslations("Auth");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -57,24 +60,24 @@ export default function LoginPage() {
               </div>
             </div>
             <h1 className="font-display text-4xl font-black leading-tight text-white">
-              Masuk untuk menikmati ribuan judul favorit.
+              {t("signInDesc")}
             </h1>
             <p className="mt-4 text-base text-zinc-300">
-              Film, drama, short drama, anime, dan serial terbaru tersedia dalam satu platform.
+              {t("signInSub")}
             </p>
           </div>
         </div>
 
         <div className="p-6 sm:p-8 lg:p-10">
           <div className="mb-8">
-            <p className="text-xs uppercase tracking-[0.25em] text-red-300">Welcome back</p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-white">Login</h2>
+            <p className="text-xs uppercase tracking-[0.25em] text-red-300">{t("welcomeBack")}</p>
+            <h2 className="mt-3 font-display text-3xl font-bold text-white">{t("login")}</h2>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label htmlFor="email" className="mb-2 block text-sm text-zinc-300">
-                Email
+                {t("email")}
               </label>
               <input
                 id="email"
@@ -89,14 +92,14 @@ export default function LoginPage() {
 
             <div>
               <label htmlFor="password" className="mb-2 block text-sm text-zinc-300">
-                Password
+                {t("password")}
               </label>
               <input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Masukkan password"
+                placeholder="********"
                 className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-red-500 focus:outline-none"
                 required
               />
@@ -119,14 +122,14 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full rounded-2xl bg-red-600 px-4 py-3 font-semibold text-white transition hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {loading ? "Memproses..." : "Login"}
+              {loading ? t("processing") : t("login")}
             </button>
           </form>
 
           <p className="mt-6 text-center text-sm text-zinc-400">
-            Belum punya akun? {" "}
+            {t("noAccount")} {" "}
             <Link href="/auth/register" className="font-semibold text-red-400 hover:text-red-300">
-              Register sekarang
+              {t("registerNow")}
             </Link>
           </p>
         </div>

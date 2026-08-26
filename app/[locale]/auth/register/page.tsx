@@ -1,28 +1,26 @@
 "use client";
 
-import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import { useRouter, Link } from "@/i18n/routing";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { useTranslations } from "next-intl";
+import { FormEvent } from "react";
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const t = useTranslations("Auth");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
     setMessage("");
     setError("");
-
-    if (password !== confirmPassword) {
-      setError("Konfirmasi password tidak cocok.");
-      setLoading(false);
-      return;
-    }
 
     try {
       const response = await fetch("/api/auth/register", {
@@ -36,16 +34,15 @@ export default function RegisterPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Registrasi gagal.");
+        throw new Error(data.message || t("errors.registrationFailed"));
       }
 
-      setMessage(data.message || "Registrasi berhasil.");
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
+      setMessage(data.message || t("success.registrationSuccess"));
+      setTimeout(() => {
+        router.push("/auth/login");
+      }, 2000);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Registrasi gagal.");
+      setError(err instanceof Error ? err.message : t("errors.unexpected"));
     } finally {
       setLoading(false);
     }
@@ -60,35 +57,32 @@ export default function RegisterPage() {
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-600 text-xl font-black text-white">D</div>
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-red-300">DB Movie</p>
-                <p className="font-display text-2xl font-bold text-white">Bergabunglah</p>
+                <p className="font-display text-2xl font-bold text-white">Premium Streaming</p>
               </div>
             </div>
             <h1 className="font-display text-4xl font-black leading-tight text-white">
-              Buat akun Anda dan mulai streaming sekarang.
+              {t("createDesc")}
             </h1>
-            <p className="mt-4 text-base text-zinc-300">
-              Akses film, drama, anime, dan banyak konten eksklusif dengan pengalaman premium.
-            </p>
           </div>
         </div>
 
         <div className="p-6 sm:p-8 lg:p-10">
           <div className="mb-8">
-            <p className="text-xs uppercase tracking-[0.25em] text-red-300">Create account</p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-white">Register</h2>
+            <p className="text-xs uppercase tracking-[0.25em] text-red-300">{t("register")}</p>
+            <h2 className="mt-3 font-display text-3xl font-bold text-white">{t("createAccount")}</h2>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label htmlFor="username" className="mb-2 block text-sm text-zinc-300">
-                Username
+                {t("username")}
               </label>
               <input
                 id="username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Masukkan username"
+                placeholder="johndoe"
                 className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-red-500 focus:outline-none"
                 required
               />
@@ -96,7 +90,7 @@ export default function RegisterPage() {
 
             <div>
               <label htmlFor="email" className="mb-2 block text-sm text-zinc-300">
-                Email
+                {t("email")}
               </label>
               <input
                 id="email"
@@ -111,29 +105,14 @@ export default function RegisterPage() {
 
             <div>
               <label htmlFor="password" className="mb-2 block text-sm text-zinc-300">
-                Password
+                {t("password")}
               </label>
               <input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Minimal 6 karakter"
-                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-red-500 focus:outline-none"
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="confirmPassword" className="mb-2 block text-sm text-zinc-300">
-                Konfirmasi Password
-              </label>
-              <input
-                id="confirmPassword"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Ulangi password"
+                placeholder="********"
                 className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-red-500 focus:outline-none"
                 required
               />
@@ -156,14 +135,14 @@ export default function RegisterPage() {
               disabled={loading}
               className="w-full rounded-2xl bg-red-600 px-4 py-3 font-semibold text-white transition hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {loading ? "Mendaftarkan..." : "Register"}
+              {loading ? t("processing") : t("register")}
             </button>
           </form>
 
           <p className="mt-6 text-center text-sm text-zinc-400">
-            Sudah punya akun? {" "}
+            {t("haveAccount")} {" "}
             <Link href="/auth/login" className="font-semibold text-red-400 hover:text-red-300">
-              Login disini
+              {t("login")}
             </Link>
           </p>
         </div>

@@ -3,55 +3,60 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ConfirmModal from "@/app/components/ConfirmModal";
+import { useTranslations } from "next-intl";
 
 interface ApiKeyResponse {
   apiKey: string | null;
+  status: boolean;
+  error?: string;
+  data?: {
+    apiKey: string;
+  };
 }
 
-export default function ApiPage() {
+export default function ApiKeysPage() {
   const router = useRouter();
+  const t = useTranslations("ApiKeysPage");
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
 
   useEffect(() => {
+    const fetchApiKey = async () => {
+      try {
+        const response = await fetch("/api/v1/api-keys");
+        const result: ApiKeyResponse = await response.json();
+        if (response.status === 401) {
+          router.push("/auth/login");
+          return;
+        }
+        if (result.status) {
+          setApiKey(result.data?.apiKey || null);
+        } else {
+          setError(result.error || "Failed to fetch API key");
+        }
+      } catch (err) {
+        setError("Error loading API key");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchApiKey();
-  }, []);
-
-  const fetchApiKey = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("/api/v1/api-keys");
-      const result = await response.json();
-      if (response.status === 401) {
-        router.push("/auth/login");
-        return;
-      }
-      if (result.status) {
-        setApiKey(result.data.apiKey);
-      } else {
-        setError(result.error || "Failed to fetch API key");
-      }
-    } catch (err) {
-      setError("Error loading API key");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
+  }, [router]);
 
   const executeGenerateKey = async () => {
     setGenerating(true);
     try {
       const response = await fetch("/api/v1/api-keys", { method: "POST" });
-      const result = await response.json();
+      const result: ApiKeyResponse = await response.json();
       if (result.status) {
-        setApiKey(result.data.apiKey);
+        setApiKey(result.data?.apiKey || null);
         setCopied(false);
+        setIsGenerateModalOpen(false);
       } else {
         setError(result.error || "Failed to generate API key");
       }
@@ -82,8 +87,8 @@ export default function ApiPage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-[#0b0b0f] px-4 py-10 text-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-5xl">
-          <p className="text-center text-zinc-400">Loading API key...</p>
+        <div className="mx-auto max-w-4xl">
+          <p className="text-center text-zinc-400">{t("loading") || "Loading API key..."}</p>
         </div>
       </main>
     );
@@ -95,21 +100,21 @@ export default function ApiPage() {
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-xs uppercase tracking-[0.25em] text-red-300">Developer</p>
-            <h1 className="mt-2 font-display text-3xl font-bold text-white">API Key</h1>
+            <h1 className="mt-2 font-display text-3xl font-bold text-white">{t("title")}</h1>
           </div>
           <button
             onClick={handleGenerateKey}
             disabled={generating}
             className="rounded-full bg-red-600 px-5 py-2.5 font-semibold text-white shadow-lg shadow-red-600/30 transition hover:bg-red-500 disabled:opacity-50"
           >
-            {generating ? "Generating..." : "Generate Key"}
+            {generating ? (t("generating") || "Generating...") : (t("generateNew") || "Generate Key")}
           </button>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
           <section className="rounded-[28px] border border-white/10 bg-[#111318] p-6">
             <h2 className="font-display text-xl font-bold text-white">
-              {apiKey ? "Active API Key" : "No API Key"}
+              {apiKey ? (t("activeKey") || "Active API Key") : "No API Key"}
             </h2>
             {apiKey ? (
               <>
@@ -121,7 +126,7 @@ export default function ApiPage() {
                     onClick={handleCopyKey}
                     className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
                   >
-                    {copied ? "✓" : "Copy"}
+                    {copied ? "✓" : (t("copy") || "Copy")}
                   </button>
                 </div>
 
@@ -149,13 +154,13 @@ export default function ApiPage() {
             <h2 className="font-display text-xl font-bold text-white">Security Tips</h2>
             <div className="mt-5 space-y-3 text-sm text-zinc-300">
               <div className="rounded-2xl border border-white/10 bg-white/3 p-3">
-                Rotate key setiap 90 hari
+                Rotate key every 90 days
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/3 p-3">
-                Gunakan HTTPS saat request
+                Use HTTPS for requests
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/3 p-3">
-                Jangan bagikan key ke client publik
+                Do not share key to public clients
               </div>
             </div>
           </section>
@@ -172,9 +177,9 @@ export default function ApiPage() {
         isOpen={isGenerateModalOpen}
         onClose={() => setIsGenerateModalOpen(false)}
         onConfirm={executeGenerateKey}
-        title="Generate New API Key"
-        message="Are you sure you want to generate a new API key? Your current key will be permanently replaced and will stop working immediately."
-        confirmText="Generate Key"
+        title={t("generateModalTitle")}
+        message={t("generateModalMessage")}
+        confirmText={t("generateNew")}
         isDestructive={false}
       />
     </main>

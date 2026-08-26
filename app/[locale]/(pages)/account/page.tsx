@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ConfirmModal from "@/app/components/ConfirmModal";
+import { useTranslations } from "next-intl";
 
 interface User {
   id: string;
@@ -20,6 +21,7 @@ export default function AccountPage() {
   const [error, setError] = useState<string | null>(null);
   const [updating, setUpdating] = useState(false);
   const [formData, setFormData] = useState({ newName: "", newPassword: "" });
+  const t = useTranslations("AccountPage");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -117,7 +119,7 @@ export default function AccountPage() {
     return (
       <main className="min-h-screen bg-[#0b0b0f] px-4 py-10 text-white sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <p className="text-center text-zinc-400">Loading account...</p>
+          <p className="text-center text-zinc-400">{t("loading")}</p>
         </div>
       </main>
     );
@@ -127,7 +129,7 @@ export default function AccountPage() {
     return (
       <main className="min-h-screen bg-[#0b0b0f] px-4 py-10 text-white sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <p className="text-center text-red-400">Error: {error || "Account not found"}</p>
+          <p className="text-center text-red-400">{t("error")}</p>
         </div>
       </main>
     );
@@ -138,33 +140,33 @@ export default function AccountPage() {
       <div className="mx-auto max-w-5xl">
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.25em] text-red-300">Profile</p>
-            <h1 className="mt-2 font-display text-3xl font-bold text-white">Account</h1>
+            <p className="text-xs uppercase tracking-[0.25em] text-red-300">{t("profile")}</p>
+            <h1 className="mt-2 font-display text-3xl font-bold text-white">{t("account")}</h1>
           </div>
           <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
             user.status === 'Active'
               ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300'
               : 'border-red-500/30 bg-red-500/10 text-red-300'
           }`}>
-            {user.status} Account
+            {user.status} {t("account")}
           </span>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
           {/* User Info */}
           <section className="rounded-[28px] border border-white/10 bg-[#111318] p-6">
-            <h2 className="font-display text-xl font-bold text-white">User Information</h2>
+            <h2 className="font-display text-xl font-bold text-white">{t("userInfo")}</h2>
             <div className="mt-5 space-y-4">
               <div className="rounded-2xl border border-white/10 bg-white/3 p-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Username</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">{t("username")}</p>
                 <p className="mt-2 text-lg font-bold text-white">{user.username}</p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/3 p-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Email</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">{t("email")}</p>
                 <p className="mt-2 text-lg font-bold text-white">{user.email}</p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/3 p-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Joined</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">{t("joined")}</p>
                 <p className="mt-2 text-lg font-bold text-white">{new Date(user.createdAt).toLocaleDateString('id-ID')}</p>
               </div>
             </div>
@@ -175,12 +177,12 @@ export default function AccountPage() {
             onSubmit={handleUpdatePassword}
             className="rounded-[28px] border border-white/10 bg-[#111318] p-6"
           >
-            <h2 className="font-display text-xl font-bold text-white">Update Password</h2>
+            <h2 className="font-display text-xl font-bold text-white">{t("updatePassword")}</h2>
             <div className="mt-5">
-              <label className="mb-2 block text-sm text-zinc-300">New Password</label>
+              <label className="mb-2 block text-sm text-zinc-300">{t("newPassword")}</label>
               <input
                 type="password"
-                placeholder="Enter new password"
+                placeholder={t("enterNewPassword")}
                 value={formData.newPassword}
                 onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
                 className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-red-500 focus:outline-none"
@@ -190,7 +192,7 @@ export default function AccountPage() {
                 disabled={updating}
                 className="mt-5 w-full rounded-2xl bg-red-600 px-4 py-3 font-semibold text-white transition hover:bg-red-500 disabled:opacity-50"
               >
-                {updating ? "Updating..." : "Update Password"}
+                {updating ? t("updating") : t("updatePassword")}
               </button>
             </div>
           </form>
@@ -200,12 +202,12 @@ export default function AccountPage() {
             onSubmit={handleUpdateName}
             className="rounded-[28px] border border-white/10 bg-[#111318] p-6"
           >
-            <h2 className="font-display text-xl font-bold text-white">Update Username</h2>
+            <h2 className="font-display text-xl font-bold text-white">{t("updateUsername")}</h2>
             <div className="mt-5">
-              <label className="mb-2 block text-sm text-zinc-300">New Username</label>
+              <label className="mb-2 block text-sm text-zinc-300">{t("username")}</label>
               <input
                 type="text"
-                placeholder="Enter new username"
+                placeholder={t("enterNewUsername")}
                 value={formData.newName}
                 onChange={(e) => setFormData({ ...formData, newName: e.target.value })}
                 className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-red-500 focus:outline-none"
@@ -215,23 +217,23 @@ export default function AccountPage() {
                 disabled={updating}
                 className="mt-5 w-full rounded-2xl bg-red-600 px-4 py-3 font-semibold text-white transition hover:bg-red-500 disabled:opacity-50"
               >
-                {updating ? "Updating..." : "Update Username"}
+                {updating ? t("updating") : t("updateUsername")}
               </button>
             </div>
           </form>
 
           {/* Danger Zone */}
           <section className="rounded-[28px] border border-red-500/20 bg-[#111318] p-6">
-            <h2 className="font-display text-xl font-bold text-white">Danger Zone</h2>
+            <h2 className="font-display text-xl font-bold text-white">{t("dangerZone")}</h2>
             <div className="mt-5 rounded-2xl border border-red-500/30 bg-red-500/5 p-4">
               <p className="text-sm text-zinc-300">
-                Deleting your account will remove all data, API keys, and payment history permanently.
+                {t("deleteWarning")}
               </p>
               <button
                 onClick={handleDeleteAccount}
                 className="mt-5 w-full rounded-2xl border border-red-500/40 bg-red-600/10 px-4 py-3 font-semibold text-red-300 transition hover:bg-red-600/20"
               >
-                Delete Account
+                {t("deleteAccount")}
               </button>
             </div>
           </section>
@@ -242,9 +244,9 @@ export default function AccountPage() {
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={executeDeleteAccount}
-        title="Delete Account"
-        message="Are you sure you want to delete your account? All data, API keys, and payment history will be permanently removed. This action cannot be undone."
-        confirmText="Delete Account"
+        title={t("deleteModalTitle")}
+        message={t("deleteModalMessage")}
+        confirmText={t("deleteAccount")}
         isDestructive={true}
       />
     </main>
